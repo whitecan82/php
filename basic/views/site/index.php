@@ -50,6 +50,8 @@ basic/
         index.php
         update.php
         view.php
+----------------------------------------
+kartik-v/yii2-grid "@dev" 모듈 적용
 </pre>
 
                 
@@ -58,9 +60,11 @@ basic/
                 <h2>기능</h2>
 
 <pre>
-GridView 활용, 게시판 구현
+GridView 활용, 게시판 구현 
                      Gii활용 Model,CRUD 생성
                      SQLite 연동
+--------------------------------------------
+kartik GridView로 변경
 </pre>
 <pre>
 게시글 작성 및 열림시 

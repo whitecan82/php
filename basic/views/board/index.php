@@ -9,7 +9,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\BoardSearch */
@@ -20,16 +20,55 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="board-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
+    <!-- <?php  echo $this->render('_search', ['model' => $searchModel]); ?> -->
 
-    <p>
-        <?= Html::a('Write', ['create'], ['class' => 'btn btn-success','style'=>'float:right']) ?>
-    </p>
 <br >
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        // 'filterModel' => $searchModel,
+        'bootstrap' => true,
+        'bordered' => true,
+        'hover' => true,
+        'striped'=>false,
+
+        // 'export' => [
+        //     'fontAwesome'=>false,
+        //     // 'label' => 'Print View',
+        //     'target' => GridView::TARGET_SELF,
+        //     'showConfirmAlert' => false,
+        // ],
+
+
+        'panel' => [
+            'heading'=>'<h3 class="panel-title"></i> Board</h3>',
+            'type'=>'info',
+            'before'=>
+                    '<div style=float:right>&nbsp </div> ' .
+                    Html::a('<div class="glyphicon glyphicon-repeat"></div>', 
+                        ['index'], 
+                        [
+                            'class'=>'btn btn-info',
+                            'title'=>'Refresh',
+                            'style'=>'float:right',
+                        ]). 
+                    '<div style=float:right>&nbsp </div> ' .
+                    Html::a('<div class="glyphicon glyphicon-plus" ></div>', 
+                        ['create'], 
+                        [
+                            'class'=>'btn btn-success',
+                            'title'=>'Write',
+                            'style'=>'float:right',
+                        ]),
+            'showfooter'=>false,
+
+
+            '{export}',
+            '{toggleData}',
+        ],
+        'toggleDataContainer' => ['class' => 'btn-group','style'=>'float:right'],
+        'exportContainer' => ['class' => 'btn-group','style'=>'float:right'],
+     
         'columns' => [
             [   //  글 id(시리얼) 정보
                 'attribute'=>'id',
@@ -55,7 +94,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
             [   //  기본 액션    보기,수정,삭제
-                'class' => 'yii\grid\ActionColumn',
+                'class' => 'kartik\grid\ActionColumn',
+                'header'=>'',
                 'contentOptions' => ['style' => 'width: 80px','align'=> 'middle'],
             ],
         ],
