@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         'panel' => [
             'heading'=>'<h3 class="panel-title"></i> Board</h3>',
-            'type'=>'info',
+            'type'=>'primary',
             'before'=>
                     '<div style=float:right>&nbsp </div> ' .
                     Html::a('<div class="glyphicon glyphicon-repeat"></div>', 
@@ -85,16 +85,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [   //  입력날짜 정보
                 'attribute'=>'date',
-                'contentOptions' => ['style' => 'width: 160px'],
-
+                'contentOptions' => [  
+                    'style' => 'width: 160px',
+                ],
             ],
             [   //  작성자 정보
                 'attribute'=>'author',
                 'contentOptions' => ['style' => 'width: 80px'],
-
             ],
             [   //  기본 액션    보기,수정,삭제
                 'class' => 'kartik\grid\ActionColumn',
+                'template' => '{view} &nbsp {delete}',
                 'header'=>'',
                 'contentOptions' => ['style' => 'width: 80px','align'=> 'middle'],
             ],
