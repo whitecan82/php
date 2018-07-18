@@ -18,8 +18,6 @@ use kartik\widgets\Select2;
 use yii\helpers\ArrayHelper;
 use app\models\DropList;
 
-date_default_timezone_set('Asia/Tokyo');
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Board */
 /* @var $form yii\widgets\ActiveForm */
@@ -27,7 +25,7 @@ date_default_timezone_set('Asia/Tokyo');
 
 <div class="board-form">
     <?php $form = ActiveForm::begin(); ?>
-    <div class="panel panel-default">
+    <div class="panel panel-success">
     <div class="panel-heading" style="font-size:25px">Write</div>
         <div class="panel-body">
             <div class="row ">
@@ -88,14 +86,6 @@ date_default_timezone_set('Asia/Tokyo');
                         ],
                     ]) ?>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <?= $form->field($model, 'description')->textarea([
-                        'rows' => 6,
-                        'placeholder' => 'Descripte project ...',
-                    ]) ?>
-                </div>
                 <div class="col-sm-6">
                     <?= $form->field($model, 'endTime')->widget(TImePicker::class, [
                         'options' => [
@@ -112,19 +102,27 @@ date_default_timezone_set('Asia/Tokyo');
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <?= $form->field($model, 'author')->textinput(['readOnly'=>true,'value'=> Yii::$app->user->identity->username]) ?>
+                    <?= $form->field($model, 'description')->textarea([
+                        'rows' => 6,
+                        'placeholder' => 'Descripte project ...',
+                    ]) ?>
+                </div>
+               
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <?= $form->field($model, 'author')->textinput([
+                        'readOnly'=>true,
+                        'value'=> Yii::$app->user->identity->username,
+                    ]) ?>
                 </div>
             </div>
         </div>
     </div>
-        
-        <?= $form->field($model, 'date')->hiddeninput(['value'=>date('Y-m-d H:i')])->label(false); ?>
-        
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
             <?= Html::a('Cancle', ['index', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
         </div>
-
         <?php ActiveForm::end(); ?>
     </div>
 </div>

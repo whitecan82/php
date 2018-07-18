@@ -4,8 +4,6 @@
     btn - Write     글 작성 view 전환
 -->
 
-
-
 <?php
 
 use yii\helpers\Html;
@@ -16,7 +14,7 @@ use kartik\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Board';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="board-index">
 
@@ -41,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
         'panel' => [
-            'heading'=>'<h3 class="panel-title"></i> Board</h3>',
+            'heading'=>'<p class=subtitle style=margin:0 0 0px>Board</p>',
             'type'=>'primary',
             'before'=>
                     '<div style=float:right>&nbsp </div> ' .
@@ -93,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'author',
                 'contentOptions' => ['style' => 'width: 80px'],
             ],
-            [   //  기본 액션    보기,수정,삭제
+            [   //  기본 액션    보기, 삭제
                 'class' => 'kartik\grid\ActionColumn',
                 'template' => '{view} &nbsp {delete}',
                 'header'=>'',

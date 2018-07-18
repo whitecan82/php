@@ -22,6 +22,7 @@ $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Board', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="board-view">
 
     <!-- <h1><?= Html::encode('Title: '.$this->title) ?></h1> -->
@@ -47,7 +48,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?> -->
     </p>
     
-    <?= DetailView::widget([
+    <?= $detailview2 = DetailView::widget([
+        'container'=>['id'=>'kv-demo1'],
         'model' => $model,
         'condensed'=>true,
         'hover'=>true,
@@ -65,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'group'=>true,
                 'label'=>'&nbsp Board Details',
-                'rowOptions'=>['class'=>'info']
+                'rowOptions'=>['style'=>'background-color:#d1e6fa']
             ],
             [
                 'columns' => [
@@ -90,25 +92,43 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute'=>'passwordSet', 
                         'label'=>'Modification',
                         'type'=>DetailView::INPUT_SWITCH,
-                        'value'=>$model->passwordSet==true?'On':'Off',
+                        'value'=>$model->passwordSet?'On':'Off',
                         'valueColOptions'=>['style'=>'width:30%'],
-                       
+                        'displayOnly'=>(Yii::$app->user->identity->username == $model->author)?"":"true",
+                        'widgetOptions' => [
+                            'pluginEvents' => [
+                                'switchChange.bootstrapSwitch'  => 'function(e,state) { 
+                                    if(state){
+                                        document.getElementById("board-passwordtext").removeAttribute("disabled");
+                                        document.getElementById("board-passwordtext").placeholder="input password ...";
+                                    }
+                                    else{
+                                        document.getElementById("board-passwordtext").setAttribute("disabled", "");
+                                        document.getElementById("board-passwordtext").placeholder="password will set NULL";
+                                        document.getElementById("board-passwordtext").value="";
+                                    }
+                                 }',
+                            ],
+                        ],
                     ],
                     [
-                        'attribute'=>'passwordType',
+                        'attribute'=>'passwordText',
                         'label'=>'Modification CODE', 
                         'type'=>DetailView::INPUT_PASSWORD,
+                        'value'=>'',
                         'options' => [
-                            'placeholder' => 'input password ...',
+                            'placeholder' => $model->passwordSet?'input password ...':'',
+                            'disabled'=> $model->passwordSet?false:true,    
                         ],
                         'valueColOptions'=>['style'=>'width:30%'], 
+                        
                     ],
                 ],
             ],
             [
                 'group'=>true,
                 'label'=>'&nbsp Project Details',
-                'rowOptions'=>['class'=>'info']
+                'rowOptions'=>['style'=>'background-color:#d1e6fa']
             ],
             [
                 'columns' => [
@@ -145,13 +165,17 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'columns' => [
                     [
-                        'attribute'=>'type_id',
-                        'label'=>'Work Type',
-                        'type'=>DetailView::INPUT_SELECT2,
-                        'value'=>ArrayHelper::map(DropList::find()->all(),'id','typeName')[$model->type_id],
-                        'widgetOptions'=>[
-                            'data'=> ArrayHelper::map(DropList::find()->all(),'id','typeName'),
+                        'attribute'=>'people',
+                        'label'=>'Participants',
+                        'value'=>$model->people,
+                        'formOptions'=>[
+                            'enableAjaxValidation'=>true,
                         ],
+                        'options' => [
+                            'placeholder' => 'Participants Number ...',
+                        ],
+                        'inputContainer' => ['class'=>'col-sm-12'],
+                        'valueColOptions'=>['style'=>'width:30%;'],
                     ],
                     [
                         'attribute'=>'endDate', 
@@ -173,19 +197,29 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'columns' => [
                     [
-                        'attribute'=>'people',
-                        'label'=>'Participants',
-                        'value'=>$model->people,
-                        'formOptions'=>[
-                            'enableAjaxValidation'=>true,
+                        'attribute'=>'type_id',
+                        'label'=>'Work Type',
+                        'type'=>DetailView::INPUT_SELECT2,
+                        'value'=>ArrayHelper::map(DropList::find()->all(),'id','typeName')[$model->type_id],
+                        'widgetOptions'=>[
+                            'data'=> ArrayHelper::map(DropList::find()->all(),'id','typeName'),
                         ],
-                        'options' => [
-                            'placeholder' => 'Participants Number ...',
+                        'valueColOptions'=>[
+                            'style'=>'width:30%;','vAlign'=> 'top',
                         ],
-                        'inputContainer' => ['class'=>'col-sm-12'],
-                        'valueColOptions'=>['style'=>'width:88%'],
+                        
                     ],
-                    
+                    [
+                        'attribute'=>'endTime',
+                        'label'=>'End Time', 
+                        'type'=>DetailView::INPUT_TIME,
+                        'value'=>$model->endTime,
+                        'valueColOptions'=>[
+                            'class'=>'edittime',
+                            'style'=>'width:30%;','vAlign'=> 'top',
+                        ],
+                        'inputContainer' => ['class'=>'col-sm-12',],
+                    ],
                 ],
             ],
             [
@@ -196,21 +230,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value'=>$model->description,
                         'type'=>DetailView::INPUT_TEXTAREA,
                         'options' => [
-                            'rows'=>12,
+                            'rows'=>6,
                             'placeholder' => 'Descript project ...',
                         ],
+                        'valueColOptions'=>['style'=>'width:80%'], 
                         'inputContainer' => ['class'=>'col-sm-12'],
                     ],
-                    [
-                        'attribute'=>'endTime',
-                        'label'=>'End Time', 
-                        'type'=>DetailView::INPUT_TIME,
-                        'value'=>$model->endTime,
-                        'valueColOptions'=>[
-                            'style'=>'width:30%','vAlign'=> 'top',
-                        ],
-                        'inputContainer' => ['class'=>'col-sm-12'],
-                    ],
+                    
                 ],
                 
             ],
@@ -223,6 +249,5 @@ $this->params['breadcrumbs'][] = $this->title;
             //     'method' => 'post',
             // ],
         ],
-        
     ])?>
 </div>

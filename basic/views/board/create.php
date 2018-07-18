@@ -10,8 +10,8 @@ use yii\helpers\Html;
 /* @var $model app\models\Board */
 
 $this->title = 'Write';
-$this->params['breadcrumbs'][] = ['label' => 'Board', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => 'Board', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="board-create">
 
