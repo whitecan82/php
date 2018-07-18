@@ -31,62 +31,30 @@ localhost : Apache Web Server
 
              
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-8">
                 <h2>추가사항</h2>
 
-<pre>
-basic/
-    controllers/ 
-        BoardController.php
-    dbData/
-        TEST.db
-    models/
-        Board.php
-        BoardSearch.php
-    views/
-        _form.php
-        _search.php
-        create.php
-        index.php
-        update.php
-        view.php
-----------------------------------------
-kartik-v/yii2-grid "@dev" 모듈 적용
-</pre>
+<pre style=width:100%;>
+< 기능 구현 >
+    [ BoardView ]-> 'Modification' SwitchButton,
+                    'Modification Code' Password Form 
+                 
+< 기능 설명 >
+    SwitchButton :
+        ( 글 작성자 == 로그인 id ) -> 버튼 활성화    // 작성자 이외에 password설정 불가능
+        작성자가 버튼을 'Off'로 수정 한 경우         // password는 NULL로 초기화
+    PasswordForm : 
+        DB와 inputtext 대조                         // 암호를 알 경우,누구나 수정 가능
+        button에 따라 passwordForm 활성화           // (disabled,display)속성 변경
 
-                
-            </div>
-            <div class="col-lg-4">
-                <h2>기능</h2>
+< 마무리 >
+    작성자 : Modification Code 설정 가능
+            글을 수정 할 경우, password 입력하지 않아도 수정 가능          
 
-<pre>
-GridView 활용, 게시판 구현 
-                     Gii활용 Model,CRUD 생성
-                     SQLite 연동
---------------------------------------------
-kartik GridView로 변경
-</pre>
-<pre>
-게시글 작성 및 열림시 
-        complete 기능 추가 (Board 페이지 전환)
-        Cancle 기능 추가 
-        Update(수정)기능 추가
-        글 작성 일시 및 작성자(로그인) 자동 등록
-</pre>
-<pre>
-로그인 // 템플릿 내장 기능 이용 (DB 미사용)
-    basic/models/User.php   유저데이터 위치
-    
-    ID      PASSWORD
-    admin   admin
-    demo    demo
+    작성자 외 : 글을 수정 할 경우, password 필요
 
-* 비로그인시 게시판 이용불가, 로그인화면 전환
+    View의 css 간단 수정
 </pre>
-
-                
-            </div>
-        </div>
 
     </div>
 </div>

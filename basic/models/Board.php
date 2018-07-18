@@ -15,6 +15,8 @@ use Yii;
  */
 class Board extends \yii\db\ActiveRecord
 {
+    public $passwordText;
+
     /**
      * @inheritdoc
      */
@@ -29,8 +31,13 @@ class Board extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'description', 'date', 'author'], 'required'],
-            [['title', 'description', 'date', 'author'], 'string'],
+            [['title', 'description', 'date', 'author','people', 'startDate','endDate',
+                'endTime','type_id'], 'required'],
+            
+            [['title', 'description', 'date', 'author','startDate','endDate','endTime',
+                'passwordType','passwordText','passwordSet','type_id'],'string',],
+            
+            [['people'],'number','min'=>'0'],
         ];
     }
 
@@ -47,4 +54,5 @@ class Board extends \yii\db\ActiveRecord
             'author' => 'Author',
         ];
     }
+    
 }

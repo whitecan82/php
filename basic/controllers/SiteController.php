@@ -136,14 +136,4 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
-
-    public function actionBoard()   // '로그인' 확인 후, 화면 전환
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->redirect('http://localhost/basic/web/index.php?r=board%2Findex');
-        }
-        else{
-           return $this->redirect('http://localhost/basic/web/index.php?r=site%2Flogin');
-        }
-    }
 }
